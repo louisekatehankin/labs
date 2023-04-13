@@ -1,11 +1,7 @@
 package com.agile.calculator;
 
 import static org.junit.Assert.assertEquals;
-
-import org.junit.Before;
 import org.junit.Test;
-
-import com.agile.calculator.Calculator;
 
 public class CalculatorTest {
 
@@ -69,8 +65,27 @@ public class CalculatorTest {
 		calculator = new Calculator();
 		calculator.divide("10,0");
 	}
-	
-	
-	
 
+	@Test
+	public void stringWithoutCommaSeparatorTest() {
+		calculator = new Calculator();
+		int expected = -9999;
+		int actual = calculator.divide("some.string");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void numbersWithoutCommaSeparatorTest() {
+		calculator = new Calculator();
+		int expected = 8;
+		int actual = calculator.divide("24.3");
+		assertEquals(expected, actual);
+	}
+
+	@Test
+	public void catchInterruptedExceptionTest() {
+		calculator = new Calculator();
+		Thread.currentThread().interrupt();
+		calculator.divide("someString");
+	}
 }
